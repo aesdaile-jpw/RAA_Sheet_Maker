@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Command RAA_Sheet_Maker</Text>
+    <Description>Some description for RAA_Sheet_Maker</Description>
+    <Assembly>RAA_Sheet_Maker.dll</Assembly>
+    <FullClassName>RAA_Sheet_Maker.Command</FullClassName>
+    <ClientId>9eefacb2-7be3-4085-a40b-166c438a98fe</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Application RAA_Sheet_Maker</Name>
+    <Assembly>RAA_Sheet_Maker.dll</Assembly>
+    <FullClassName>RAA_Sheet_Maker.App</FullClassName>
+    <ClientId>6628df7a-75ba-423b-87d4-69b43e40d940</ClientId>
+    <VendorId>com.YOUR COMPANY NAME</VendorId>
+    <VendorDescription>YOUR COMPANY NAME, YOUR COMPANY URL</VendorDescription>
+  </AddIn>
+</RevitAddIns>
