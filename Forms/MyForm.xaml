@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Content="Sheet Maker" FontSize="48" VerticalAlignment="Center" FontFamily="Arial Rounded MT Bold"/>
         <Label Grid.Row="1" Content="Enter Sheet information below:" FontSize="16" VerticalAlignment="Center"/>
-        <DataGrid Grid.Row="2" Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" Margin="0,10,0,10">
+        <DataGrid Grid.Row="2" Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" Margin="0,10,0,10" AlternatingRowBackground="AliceBlue">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Sheet Number" Binding="{Binding Number}" Width="120"/>
                 <DataGridTextColumn Header="Sheet Name" Binding="{Binding Name}" Width="*"/>
