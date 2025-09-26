@@ -25,5 +25,25 @@ namespace RAA_Sheet_Maker
         {
             InitializeComponent();
         }
+
+        private void btnOK_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddRow_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRemoveRow_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

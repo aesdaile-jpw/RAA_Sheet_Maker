@@ -20,7 +20,7 @@ namespace RAA_Sheet_Maker
             // 1. Create ribbon tab
             try
             {
-                app.CreateRibbonTab("Revit Add-in Academy");
+                app.CreateRibbonTab("JPW Utilities");
             }
             catch (Exception)
             {
@@ -28,10 +28,10 @@ namespace RAA_Sheet_Maker
             }
 
             // 2. Create ribbon panel 
-            RibbonPanel panel = Utils.CreateRibbonPanel(app, "Revit Add-in Academy", "Revit Tools");
+            RibbonPanel panel = Utils.CreateRibbonPanel(app, "JPW Utilities", "Utils");
 
             // 3. Create button data instances
-            ButtonDataClass myButtonData = new ButtonDataClass("btnRAA_Sheet_Maker", "My Button", Command.GetMethod(), Properties.Resources.Blue_32, Properties.Resources.Blue_16, "This is a tooltip");
+            ButtonDataClass myButtonData = new ButtonDataClass("btnRAA_Sheet_Maker", "Sheet Maker", Command.GetMethod(), Properties.Resources.Red_32, Properties.Resources.Red_16, "Create new Sheets and specify Title Blocks.");
 
             // 4. Create buttons
             PushButton myButton = panel.AddItem(myButtonData.Data) as PushButton;
