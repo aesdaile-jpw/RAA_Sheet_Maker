@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using ExcelDataReader;
+using System.Linq;
+
 
 #endregion
 
@@ -27,9 +30,16 @@ namespace RAA_Sheet_Maker
             Document doc = uidoc.Document;
 
             // put any code needed for the form here
+            List<Element> allTitleblocks = new List<Element>();
+            FilteredElementCollector collector = new FilteredElementCollector(doc);
+            collector.OfClass(typeof(FamilySymbol));
+            collector.OfCategory(BuiltInCategory.OST_TitleBlocks);
+            allTitleblocks = collector.ToElements().Cast<Element>().ToList();
+
+
 
             // open form
-            MyForm currentForm = new MyForm()
+            MyForm currentForm = new MyForm(allTitleblocks)
             {
                 Width = 800,
                 Height = 450,
@@ -49,5 +59,7 @@ namespace RAA_Sheet_Maker
             var method = MethodBase.GetCurrentMethod().DeclaringType?.FullName;
             return method;
         }
+
+
     }
 }
