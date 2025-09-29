@@ -183,6 +183,11 @@ namespace RAA_Sheet_Maker
                                     XYZ insertPoint = new XYZ(1, 1, 0);
                                     Viewport.Create(doc, sheet.Id, viewToPlace.Id, insertPoint);
                                 }
+                                else
+                                {
+                                    TaskDialog.Show("Error", $"View to place already placed on a Sheet. Sheet {s.SheetNumber} created without view.");
+                                    continue;
+                                }
                             }
                         }
 
