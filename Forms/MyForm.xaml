@@ -33,12 +33,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button x:Name="btnAddRow" Content="+" Width="30" Height="30" FontSize="16" Click="btnAddRow_Click"/>
-                <Button x:Name="btnRemoveRow" Content="-" Width="30" Height="30" Margin="10,0,0,0" FontSize="16" Click="btnRemoveRow_Click"/>
+                <Button x:Name="BtnAddRow" Content="+" Width="30" Height="30" FontSize="16" Click="BtnAddRow_Click"/>
+                <Button x:Name="BtnRemoveRow" Content="-" Width="30" Height="30" Margin="10,0,0,0" FontSize="16" Click="BtnRemoveRow_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="btnOK" Content="OK" Width="80" Height="30" Margin="0,0,10,0" Click="btnOK_Click"/>
-                <Button x:Name="btnCancel" Content="Cancel" Width="80" Height="30" Margin="0,0,0,0" Click="btnCancel_Click"/>
+                <Button x:Name="BtnOK" Content="OK" Width="80" Height="30" Margin="0,0,10,0" Click="BtnOK_Click"/>
+                <Button x:Name="BtnCancel" Content="Cancel" Width="80" Height="30" Margin="0,0,0,0" Click="BtnCancel_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

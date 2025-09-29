@@ -29,34 +29,33 @@ namespace RAA_Sheet_Maker
         {
             InitializeComponent();
             SheetList = new ObservableCollection<SheetDataClass>();
-            List<string> tbNames = new List<string>();
+            TitleBlockList = new ObservableCollection<string>();
             foreach (Element tb in _titleblocks)
             {
-                tbNames.Add(tb.Name);
+                TitleBlockList.Add(tb.Name);
             }
-            TitleBlockList = new ObservableCollection<string>() { tbNames.ToString() };
             dataGrid.ItemsSource = SheetList;
             TitleblockCombo.ItemsSource = TitleBlockList;
         }
 
-        private void btnOK_Click(object sender, RoutedEventArgs e)
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
             this.Close();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
             this.Close();
         }
 
-        private void btnAddRow_Click(object sender, RoutedEventArgs e)
+        private void BtnAddRow_Click(object sender, RoutedEventArgs e)
         {
             SheetList.Add(new SheetDataClass("", "", false, ""));
         }
 
-        private void btnRemoveRow_Click(object sender, RoutedEventArgs e)
+        private void BtnRemoveRow_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -68,6 +67,33 @@ namespace RAA_Sheet_Maker
             }
             catch (Exception)
             { }
+        }
+
+        //public List<string[]> GetData()
+        //{
+        //    List<string[]> returnData = new List<string[]>();
+        //    foreach (SheetDataClass row in SheetList)
+        //    {
+        //        string[] curRow = new string[4];
+        //        curRow[0] = row.SheetNumber;
+        //        curRow[1] = row.SheetName;
+        //        curRow[2] = row.PlaceHolder.ToString();
+        //        curRow[3] = row.TitleBlock;
+        //        returnData.Add(curRow);
+        //    }
+        //    return returnData;
+        //}
+
+        public List<SheetDataClass> GetData()
+        {
+            foreach (SheetDataClass row in SheetList)
+            {
+                if (row.SheetNumber == null) row.SheetNumber = "";
+                if (row.SheetName == null) row.SheetName = "";
+                if (row.TitleBlock == null) row.TitleBlock = "";
+                // row.PlaceHolder is a bool, no need to check for null
+            }
+            return SheetList.ToList();
         }
     }
 
