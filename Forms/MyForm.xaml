@@ -16,12 +16,16 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Content="Sheet Maker" FontSize="48" VerticalAlignment="Center" FontFamily="Arial Rounded MT Bold"/>
         <Label Grid.Row="1" Content="Enter Sheet information below:" FontSize="16" VerticalAlignment="Center"/>
-        <DataGrid Grid.Row="2" x:Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" Margin="0,10,0,10" AlternatingRowBackground="AliceBlue">
+        <DataGrid Grid.Row="2" x:Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" Margin="0,10,0,10" AlternatingRowBackground="AliceBlue"
+                  GridLinesVisibility="All"
+                  SelectionMode="Extended"
+                  EnableColumnVirtualization="False"
+                  EnableRowVirtualization="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Sheet Number" Binding="{Binding SheetNumber}" Width="120"/>
                 <DataGridTextColumn Header="Sheet Name" Binding="{Binding SheetName}" Width="*"/>
                 <DataGridCheckBoxColumn Header="Is Placeholder?" Binding="{Binding PlaceHolder}" Width="120"/>
-                <DataGridComboBoxColumn x:Name="TitleblockCombo" Header="Titleblock" SelectedValueBinding="{Binding Titleblock}" Width="220"/>
+                <DataGridComboBoxColumn x:Name="TitleblockCombo" Header="Titleblock" SelectedItemBinding="{Binding TitleBlock}" Width="220"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="3">

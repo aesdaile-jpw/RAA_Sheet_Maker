@@ -32,7 +32,7 @@ namespace RAA_Sheet_Maker
             TitleBlockList = new ObservableCollection<string>();
             foreach (Element tb in _titleblocks)
             {
-                TitleBlockList.Add(tb.Name);
+                TitleBlockList.Add(tb.Name.ToString());
             }
             dataGrid.ItemsSource = SheetList;
             TitleblockCombo.ItemsSource = TitleBlockList;
@@ -86,14 +86,16 @@ namespace RAA_Sheet_Maker
 
         public List<SheetDataClass> GetData()
         {
+            List<SheetDataClass> returnData = new List<SheetDataClass>();
             foreach (SheetDataClass row in SheetList)
             {
                 if (row.SheetNumber == null) row.SheetNumber = "";
                 if (row.SheetName == null) row.SheetName = "";
                 if (row.TitleBlock == null) row.TitleBlock = "";
                 // row.PlaceHolder is a bool, no need to check for null
+                returnData.Add(row);
             }
-            return SheetList.ToList();
+            return returnData;
         }
     }
 

@@ -74,16 +74,28 @@ namespace RAA_Sheet_Maker
                         FamilySymbol titleblock = allTitleblocks
                             .Where(x => x.Name == s.TitleBlock)
                             .FirstOrDefault() as FamilySymbol;
-                        if (titleblock == null)
+
+                        if (titleblock == null && s.PlaceHolder == false)
                         {
-                            TaskDialog.Show("Error", $"Titleblock {s.TitleBlock} not found. Sheet {s.SheetNumber} not created.");
+                            TaskDialog.Show("Error", $"Title Block not selected. Sheet {s.SheetNumber} not created.");
                             continue;
                         }
-                        if (!titleblock.IsActive)
+
+                        if (IsSheetNumberInUse(doc, s.SheetNumber))
                         {
-                            titleblock.Activate();
-                            doc.Regenerate();
+                            TaskDialog.Show("Error", $"Sheet number {s.SheetNumber} is already in use. Sheet not created.");
+                            continue;
                         }
+
+                        if (titleblock != null && s.PlaceHolder == false)
+                        {
+                            if (!titleblock.IsActive)
+                            {
+                                titleblock.Activate();
+                                doc.Regenerate();
+                            }
+                        }
+
                         // create sheet
                         if (s.PlaceHolder == true)
                         {
@@ -102,30 +114,9 @@ namespace RAA_Sheet_Maker
                             sheet.SheetNumber = s.SheetNumber;
                             sheet.Name = s.SheetName;
                         }
-
-                        // set sheet number and name
-
-                        //// set issue parameters
-                        //if (s.Issue)
-                        //{
-                        //    Parameter issueDateParam = sheet.LookupParameter("Issue Date");
-                        //    if (issueDateParam != null && issueDateParam.IsModifiable)
-                        //    {
-                        //        issueDateParam.Set(DateTime.Now.ToShortDateString());
-                        //    }
-                        //    Parameter issuedParam = sheet.LookupParameter("Issued");
-                        //    if (issuedParam != null && issuedParam.IsModifiable)
-                        //    {
-                        //        issuedParam.Set(1); // yes/no parameter: 1 = yes, 0 = no
-                        //    }
-                        //    Parameter issuedByParam = sheet.LookupParameter("Issued By");
-                        //    if (issuedByParam != null && issuedByParam.IsModifiable)
-                        //    {
-                        //        issuedByParam.Set(Environment.UserName);
-                        //    }
-                        //}
                     }
                     t.Commit();
+                    t.Dispose();
                 }
             }
 
@@ -138,6 +129,21 @@ namespace RAA_Sheet_Maker
             return method;
         }
 
+        private bool IsSheetNumberInUse(Document doc, string sheetNumber)
+        {
+            FilteredElementCollector collector = new FilteredElementCollector(doc)
+                .OfClass(typeof(ViewSheet));
+
+            foreach (ViewSheet sheet in collector)
+            {
+                if (sheet.SheetNumber.Equals(sheetNumber, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
     }
 }
