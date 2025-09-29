@@ -41,9 +41,6 @@ namespace RAA_Sheet_Maker
             try
             {
                 // Get all views in the document
-                //FilteredElementCollector viewCollector = new FilteredElementCollector(doc)
-                //    .OfClass(typeof(View))
-                //    .Cast<View>();
                 FilteredElementCollector viewCollector = new FilteredElementCollector(doc)
                     .OfClass(typeof(View));
 
@@ -72,8 +69,6 @@ namespace RAA_Sheet_Maker
                 message = $"An error occurred: {ex.Message}";
                 return Result.Failed;
             }
-
-
 
             // open form
             MyForm currentForm = new MyForm(allTitleblocks, unplacedViews)
@@ -139,20 +134,6 @@ namespace RAA_Sheet_Maker
                             }
                         }
 
-
-                        //if (!s.PlaceHolder && s.ViewToPlace != "")
-                        //{
-                        //    // get view to place
-                        //    View viewToPlace = unplacedViews
-                        //        .Where(x => x.Name == s.ViewToPlace)
-                        //        .FirstOrDefault() as View;
-                        //    if (viewToPlace == null)
-                        //    {
-                        //        TaskDialog.Show("Error", $"View to place not selected or already placed. Sheet {s.SheetNumber} not created.");
-                        //        continue;
-                        //    }
-                        //}
-
                         // create sheet
                         if (s.PlaceHolder == true)
                         {
@@ -180,23 +161,24 @@ namespace RAA_Sheet_Maker
                                     .FirstOrDefault() as View;
                                 if (viewToPlace != null)
                                 {
-                                    XYZ insertPoint = new XYZ(1, 1, 0);
-                                    Viewport.Create(doc, sheet.Id, viewToPlace.Id, insertPoint);
-                                }
-                                else
-                                {
-                                    TaskDialog.Show("Error", $"View to place already placed on a Sheet. Sheet {s.SheetNumber} created without view.");
-                                    continue;
+                                    try
+                                    {
+                                        XYZ insertPoint = new XYZ(1, 1, 0);
+                                        Viewport.Create(doc, sheet.Id, viewToPlace.Id, insertPoint);
+                                    }
+                                    catch (Exception)
+                                    {
+                                        TaskDialog.Show("Error", $"View to place already placed on a Sheet. Sheet {s.SheetNumber} created without view.");
+                                        continue;
+                                    }
                                 }
                             }
                         }
-
                     }
                     t.Commit();
                     t.Dispose();
                 }
             }
-
             return Result.Succeeded;
         }
 
@@ -218,9 +200,7 @@ namespace RAA_Sheet_Maker
                     return true;
                 }
             }
-
             return false;
         }
-
     }
 }
