@@ -11,7 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="252.71"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Content="Sheet Maker" FontSize="48" VerticalAlignment="Center" FontFamily="Arial Rounded MT Bold"/>
@@ -37,12 +37,17 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button x:Name="BtnAddRow" Content="+" Width="30" Height="30" FontSize="16" Click="BtnAddRow_Click"/>
                 <Button x:Name="BtnRemoveRow" Content="-" Width="30" Height="30" Margin="10,0,0,0" FontSize="16" Click="BtnRemoveRow_Click"/>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="importXLS" Content="Import XLS" Width="100" Height="30" FontSize="16" Click="importXLS_Click" />
+                <Button x:Name="exportXLS" Content="Export -XLS" Width="100" Height="30" Margin="10,0,0,0" FontSize="16" Click="exportXLS_Click"/>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="BtnOK" Content="OK" Width="80" Height="30" Margin="0,0,10,0" Click="BtnOK_Click"/>
                 <Button x:Name="BtnCancel" Content="Cancel" Width="80" Height="30" Margin="0,0,0,0" Click="BtnCancel_Click"/>
             </StackPanel>

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Autodesk.Revit.DB;
+using ExcelDataReader;
 
 
 namespace RAA_Sheet_Maker
@@ -76,21 +77,6 @@ namespace RAA_Sheet_Maker
             { }
         }
 
-        //public List<string[]> GetData()
-        //{
-        //    List<string[]> returnData = new List<string[]>();
-        //    foreach (SheetDataClass row in SheetList)
-        //    {
-        //        string[] curRow = new string[4];
-        //        curRow[0] = row.SheetNumber;
-        //        curRow[1] = row.SheetName;
-        //        curRow[2] = row.PlaceHolder.ToString();
-        //        curRow[3] = row.TitleBlock;
-        //        returnData.Add(curRow);
-        //    }
-        //    return returnData;
-        //}
-
         public List<SheetDataClass> GetData()
         {
             List<SheetDataClass> returnData = new List<SheetDataClass>();
@@ -104,6 +90,16 @@ namespace RAA_Sheet_Maker
                 returnData.Add(row);
             }
             return returnData;
+        }
+
+        private void exportXLS_Click(object sender, RoutedEventArgs e)
+        {
+            // Export to XLS functionality to be implemented stuff
+        }
+
+        private void importXLS_Click(object sender, RoutedEventArgs e)
+        {
+            // Import from XLS functionality to be implemented
         }
     }
 
