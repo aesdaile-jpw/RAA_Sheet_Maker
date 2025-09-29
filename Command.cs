@@ -36,12 +36,49 @@ namespace RAA_Sheet_Maker
             collector.OfCategory(BuiltInCategory.OST_TitleBlocks);
             allTitleblocks = collector.ToElements().Cast<Element>().ToList();
 
+            List<View> unplacedViews = new List<View>();
+
+            try
+            {
+                // Get all views in the document
+                //FilteredElementCollector viewCollector = new FilteredElementCollector(doc)
+                //    .OfClass(typeof(View))
+                //    .Cast<View>();
+                FilteredElementCollector viewCollector = new FilteredElementCollector(doc)
+                    .OfClass(typeof(View));
+
+                // Filter out views that are not valid for placement on sheets
+                IEnumerable<View> validViews = viewCollector.Cast<View>().ToList()
+                    .Where(v => v.CanBePrinted && !v.IsTemplate);
+
+                // Get all views that are already placed on sheets
+                HashSet<ElementId> placedViewIds = new FilteredElementCollector(doc)
+                    .OfClass(typeof(ViewSheet))
+                    .Cast<ViewSheet>()
+                    .SelectMany(sheet => sheet.GetAllPlacedViews())
+                    .ToHashSet();
+
+                // Find views that are not placed on sheets
+                unplacedViews = validViews.Cast<View>()
+                    .Where(v => !placedViewIds.Contains(v.Id))
+                    .ToList();
+
+                // Output the names of unplaced views
+                // TaskDialog.Show("Unplaced Views", string.Join(Environment.NewLine, unplacedViews.Select(v => v.Name)));
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions and display an error message
+                message = $"An error occurred: {ex.Message}";
+                return Result.Failed;
+            }
+
 
 
             // open form
-            MyForm currentForm = new MyForm(allTitleblocks)
+            MyForm currentForm = new MyForm(allTitleblocks, unplacedViews)
             {
-                Width = 800,
+                Width = 950,
                 Height = 450,
                 WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
                 Topmost = true,
@@ -87,6 +124,12 @@ namespace RAA_Sheet_Maker
                             continue;
                         }
 
+                        if (s.PlaceHolder && s.ViewToPlace != "")
+                        {
+                            TaskDialog.Show("Error", $"Views cannot be created on Placeholder Sheets. Sheet {s.SheetNumber} not created.");
+                            continue;
+                        }
+
                         if (titleblock != null && s.PlaceHolder == false)
                         {
                             if (!titleblock.IsActive)
@@ -95,6 +138,20 @@ namespace RAA_Sheet_Maker
                                 doc.Regenerate();
                             }
                         }
+
+
+                        //if (!s.PlaceHolder && s.ViewToPlace != "")
+                        //{
+                        //    // get view to place
+                        //    View viewToPlace = unplacedViews
+                        //        .Where(x => x.Name == s.ViewToPlace)
+                        //        .FirstOrDefault() as View;
+                        //    if (viewToPlace == null)
+                        //    {
+                        //        TaskDialog.Show("Error", $"View to place not selected or already placed. Sheet {s.SheetNumber} not created.");
+                        //        continue;
+                        //    }
+                        //}
 
                         // create sheet
                         if (s.PlaceHolder == true)
@@ -113,7 +170,22 @@ namespace RAA_Sheet_Maker
                             }
                             sheet.SheetNumber = s.SheetNumber;
                             sheet.Name = s.SheetName;
+
+                            // place view on sheet
+                            if (s.ViewToPlace != "")
+                            {
+                                // place view on sheet
+                                View viewToPlace = unplacedViews
+                                    .Where(x => x.Name == s.ViewToPlace)
+                                    .FirstOrDefault() as View;
+                                if (viewToPlace != null)
+                                {
+                                    XYZ insertPoint = new XYZ(1, 1, 0);
+                                    Viewport.Create(doc, sheet.Id, viewToPlace.Id, insertPoint);
+                                }
+                            }
                         }
+
                     }
                     t.Commit();
                     t.Dispose();

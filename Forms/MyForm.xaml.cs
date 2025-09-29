@@ -25,7 +25,8 @@ namespace RAA_Sheet_Maker
     {
         ObservableCollection<SheetDataClass> SheetList { get; set; }
         ObservableCollection<string> TitleBlockList { get; set; }
-        public MyForm(List<Element> _titleblocks)
+        ObservableCollection<string> ViewList { get; set; }
+        public MyForm(List<Element> _titleblocks, List<View> _validViews)
         {
             InitializeComponent();
             SheetList = new ObservableCollection<SheetDataClass>();
@@ -34,8 +35,14 @@ namespace RAA_Sheet_Maker
             {
                 TitleBlockList.Add(tb.Name.ToString());
             }
+            ViewList = new ObservableCollection<string>();
+            foreach (View v in _validViews)
+            {
+                ViewList.Add(v.Name.ToString());
+            }
             dataGrid.ItemsSource = SheetList;
             TitleblockCombo.ItemsSource = TitleBlockList;
+            ViewPlaceCombo.ItemsSource = ViewList;
         }
 
         private void BtnOK_Click(object sender, RoutedEventArgs e)
@@ -52,7 +59,7 @@ namespace RAA_Sheet_Maker
 
         private void BtnAddRow_Click(object sender, RoutedEventArgs e)
         {
-            SheetList.Add(new SheetDataClass("", "", false, ""));
+            SheetList.Add(new SheetDataClass("", "", false, "", ""));
         }
 
         private void BtnRemoveRow_Click(object sender, RoutedEventArgs e)
@@ -92,6 +99,7 @@ namespace RAA_Sheet_Maker
                 if (row.SheetNumber == null) row.SheetNumber = "";
                 if (row.SheetName == null) row.SheetName = "";
                 if (row.TitleBlock == null) row.TitleBlock = "";
+                if (row.ViewToPlace == null) row.ViewToPlace = "";
                 // row.PlaceHolder is a bool, no need to check for null
                 returnData.Add(row);
             }
@@ -105,13 +113,15 @@ namespace RAA_Sheet_Maker
         public string SheetName { get; set; }
         public bool PlaceHolder { get; set; }
         public string TitleBlock { get; set; }
+        public string ViewToPlace { get; set; }
 
-        public SheetDataClass(string sheetNumber, string sheetName, bool placeholder, string titleBlock)
+        public SheetDataClass(string sheetNumber, string sheetName, bool placeholder, string titleBlock, string viewtoPlace)
         {
             SheetNumber = sheetNumber;
             SheetName = sheetName;
             PlaceHolder = placeholder;
             TitleBlock = titleBlock;
+            ViewToPlace = viewtoPlace;
         }
     }
 }
