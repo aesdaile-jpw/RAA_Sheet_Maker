@@ -4,11 +4,12 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 
 
 #endregion
@@ -67,6 +68,9 @@ namespace RAA_Sheet_Maker
                 message = $"An error occurred: {ex.Message}";
                 return Result.Failed;
             }
+
+            //Excel Reader Licence
+            ExcelPackage.License.SetNonCommercialOrganization("JPW");
 
             // open form
             MyForm currentForm = new MyForm(allTitleblocks, unplacedViews)
