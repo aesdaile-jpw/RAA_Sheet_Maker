@@ -22,11 +22,11 @@
                   EnableColumnVirtualization="False"
                   EnableRowVirtualization="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Sheet Number" Binding="{Binding SheetNumber}" Width="120"/>
-                <DataGridTextColumn Header="Sheet Name" Binding="{Binding SheetName}" Width="*"/>
-                <DataGridCheckBoxColumn Header="Is Placeholder?" Binding="{Binding PlaceHolder}" Width="100"/>
-                <DataGridComboBoxColumn x:Name="TitleblockCombo" Header="Titleblock" SelectedItemBinding="{Binding TitleBlock}" Width="150"/>
-                <DataGridComboBoxColumn x:Name="ViewPlaceCombo" Header="View to place" SelectedItemBinding="{Binding ViewToPlace}" Width="220"/>
+                <DataGridTextColumn Header="Sheet Number" Binding="{Binding SheetNumber, Mode=TwoWay}" Width="120"/>
+                <DataGridTextColumn Header="Sheet Name" Binding="{Binding SheetName, Mode=TwoWay}" Width="*"/>
+                <DataGridCheckBoxColumn Header="Is Placeholder?" Binding="{Binding PlaceHolder, Mode=TwoWay}" Width="100"/>
+                <DataGridComboBoxColumn x:Name="TitleblockCombo" Header="Titleblock" SelectedItemBinding="{Binding TitleBlock, Mode=TwoWay}" Width="150"/>
+                <DataGridComboBoxColumn x:Name="ViewPlaceCombo" Header="View to place" SelectedItemBinding="{Binding ViewToPlace, Mode=TwoWay}" Width="220"/>
 
             </DataGrid.Columns>
         </DataGrid>

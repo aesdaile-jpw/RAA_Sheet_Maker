@@ -167,7 +167,7 @@ namespace RAA_Sheet_Maker
                                     }
                                     catch (Exception)
                                     {
-                                        TaskDialog.Show("Error", $"View to place already placed on a Sheet. Sheet {s.SheetNumber} created without view.");
+                                        TaskDialog.Show("Error", $"View already placed on a Sheet. Sheet {s.SheetNumber} created without view.");
                                         continue;
                                     }
                                 }
