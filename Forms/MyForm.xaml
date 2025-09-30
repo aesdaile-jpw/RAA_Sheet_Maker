@@ -44,8 +44,8 @@
                 <Button x:Name="BtnRemoveRow" Content="-" Width="30" Height="30" Margin="10,0,0,0" FontSize="16" Click="BtnRemoveRow_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="importXLS" Content="Import XLS" Width="100" Height="30" FontSize="16" Click="importXLS_Click" />
-                <Button x:Name="exportXLS" Content="Export -XLS" Width="100" Height="30" Margin="10,0,0,0" FontSize="16" Click="exportXLS_Click"/>
+                <Button x:Name="ImportXLS" Content="Import XLS" Width="100" Height="30" FontSize="16" Click="ImportXLS_Click" />
+                <Button x:Name="ExportXLS" Content="Export XLS" Width="100" Height="30" Margin="10,0,0,0" FontSize="16" Click="ExportXLS_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="BtnOK" Content="OK" Width="80" Height="30" Margin="0,0,10,0" Click="BtnOK_Click"/>

@@ -92,12 +92,12 @@ namespace RAA_Sheet_Maker
             return returnData;
         }
 
-        private void exportXLS_Click(object sender, RoutedEventArgs e)
+        private void ExportXLS_Click(object sender, RoutedEventArgs e)
         {
-            // Export to XLS functionality to be implemented stuff
+            // Export to XLS functionality to be implemented
         }
 
-        private void importXLS_Click(object sender, RoutedEventArgs e)
+        private void ImportXLS_Click(object sender, RoutedEventArgs e)
         {
             // Import from XLS functionality to be implemented
         }
