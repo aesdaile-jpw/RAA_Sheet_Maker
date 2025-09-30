@@ -154,11 +154,25 @@ namespace RAA_Sheet_Maker
             {
                 txtFilePath = "";
             }
-        }
-
-        public string GetFilePath()
-        {
-            return txtFilePath;
+            using (var package = new ExcelPackage(new System.IO.FileInfo(txtFilePath)))
+            {
+                var worksheet = package.Workbook.Worksheets[0]; // Assuming data is in the first worksheet
+                int rowCount = worksheet.Dimension.Rows;
+                int colCount = worksheet.Dimension.Columns;
+                // Clear existing data
+                SheetList.Clear();
+                // Read data starting from row 2 to skip headers
+                for (int row = 2; row <= rowCount; row++)
+                {
+                    string sheetNumber = worksheet.Cells[row, 1].Text;
+                    string sheetName = worksheet.Cells[row, 2].Text;
+                    bool placeHolder = false;
+                    bool.TryParse(worksheet.Cells[row, 3].Text, out placeHolder);
+                    string titleBlock = worksheet.Cells[row, 4].Text;
+                    string viewToPlace = worksheet.Cells[row, 5].Text;
+                    SheetList.Add(new SheetDataClass(sheetNumber, sheetName, placeHolder, titleBlock, viewToPlace));
+                }
+            }
         }
     }
 
