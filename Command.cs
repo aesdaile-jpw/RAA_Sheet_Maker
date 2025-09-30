@@ -36,7 +36,6 @@ namespace RAA_Sheet_Maker
             allTitleblocks = collector.ToElements().Cast<Element>().ToList();
 
             List<View> unplacedViews = new List<View>();
-
             try
             {
                 // Get all views in the document
