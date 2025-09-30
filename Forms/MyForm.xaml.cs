@@ -110,6 +110,7 @@ namespace RAA_Sheet_Maker
             else
             {
                 saveFilePath = "";
+                return;
             }
             using (var package = new ExcelPackage(saveFilePath))
             {   var worksheet = package.Workbook.Worksheets.Add("Sheets");
@@ -153,6 +154,7 @@ namespace RAA_Sheet_Maker
             else
             {
                 txtFilePath = "";
+                return;
             }
             using (var package = new ExcelPackage(new System.IO.FileInfo(txtFilePath)))
             {
