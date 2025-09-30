@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Autodesk.Revit.DB;
+using Microsoft.Win32;
+using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Autodesk.Revit.DB;
 
 
 namespace RAA_Sheet_Maker
@@ -26,6 +28,9 @@ namespace RAA_Sheet_Maker
         ObservableCollection<SheetDataClass> SheetList { get; set; }
         ObservableCollection<string> TitleBlockList { get; set; }
         ObservableCollection<string> ViewList { get; set; }
+
+        String txtFilePath = "";
+        String saveFilePath = "";
         public MyForm(List<Element> _titleblocks, List<View> _validViews)
         {
             InitializeComponent();
@@ -94,11 +99,66 @@ namespace RAA_Sheet_Maker
         private void ExportXLS_Click(object sender, RoutedEventArgs e)
         {
             // Export to XLS functionality to be implemented
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.RestoreDirectory = true;
+            saveFile.Filter = "Excel files (*.xlsx) |*.xlsx";
+            saveFile.Title = "Save as Excel file";
+            if (saveFile.ShowDialog() == true)
+            {
+                saveFilePath = saveFile.FileName;
+            }
+            else
+            {
+                saveFilePath = "";
+            }
+            using (var package = new ExcelPackage(saveFilePath))
+            {   var worksheet = package.Workbook.Worksheets.Add("Sheets");
+                // Add headers
+                worksheet.Cells[1, 1].Value = "Sheet Number";
+                worksheet.Cells[1, 2].Value = "Sheet Name";
+                worksheet.Cells[1, 3].Value = "Place Holder";
+                worksheet.Cells[1, 4].Value = "Title Block";
+                worksheet.Cells[1, 5].Value = "View to Place";
+                // Add data
+                for (int i = 0; i < SheetList.Count; i++)
+                {
+                    var sheet = SheetList[i];
+                    worksheet.Cells[i + 2, 1].Value = sheet.SheetNumber;
+                    worksheet.Cells[i + 2, 2].Value = sheet.SheetName;
+                    worksheet.Cells[i + 2, 3].Value = sheet.PlaceHolder;
+                    worksheet.Cells[i + 2, 4].Value = sheet.TitleBlock;
+                    worksheet.Cells[i + 2, 5].Value = sheet.ViewToPlace;
+                }
+                // Save the package
+                package.Save();
+            }
         }
 
         private void ImportXLS_Click(object sender, RoutedEventArgs e)
         {
             // Import from XLS functionality to be implemented
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Multiselect = false;
+            //openFile.InitialDirectory = @"C:\"; // or use "C:\\"
+            //openFile.Filter = "csv files (*.csv) |*.csv";
+            //openFile.Title = "Select a CSV file";
+            openFile.RestoreDirectory = true;
+            openFile.Filter = "Excel files (*.xlsx;*.xls) |*.xlsx;*.xls";
+            openFile.Title = "Select an Excel file";
+
+            if (openFile.ShowDialog() == true)
+            {
+                txtFilePath = openFile.FileName;
+            }
+            else
+            {
+                txtFilePath = "";
+            }
+        }
+
+        public string GetFilePath()
+        {
+            return txtFilePath;
         }
     }
 
