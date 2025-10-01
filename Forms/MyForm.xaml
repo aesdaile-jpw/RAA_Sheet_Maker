@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:RAA_Sheet_Maker"
              mc:Ignorable="d" 
              Title="Sheet Maker"
-             d:DesignHeight="450" d:DesignWidth="950">
+             d:DesignHeight="475" d:DesignWidth="950">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>

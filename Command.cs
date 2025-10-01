@@ -76,7 +76,7 @@ namespace RAA_Sheet_Maker
             MyForm currentForm = new MyForm(allTitleblocks, unplacedViews)
             {
                 Width = 950,
-                Height = 450,
+                Height = 475,
                 WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen,
                 Topmost = true,
             };
